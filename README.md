@@ -14,7 +14,7 @@ Prepare development environment with Vagrant
 2. Create some project directory and clone this repository.
 3. Run `vagrant up dev` and go make some coffee (installation process will take a while).
 4. If everything is ok just [open app][virtual-dev].
-5. 
+
 -------------------------------
 
 Prepare staging environment with Vagrant
@@ -25,6 +25,7 @@ Prepare staging environment with Vagrant
 3. Install servers with `vagrant up web` and `vagrant up db`.
 4. Copy content of *.pub* file from Your home driectory to Bitbucket [deployment keys](/panel-php/admin/deploy-keys), run deployment script `ansible-playbook -i app/config/ansible/hosts/testing.ini app/config/ansible/deploy.yml -vvvv` and go make some coffee (process will take a while).
 5. If everything is ok just  [open app][virtual-web].
+
 -------------------------------
 
 Ansible example commands

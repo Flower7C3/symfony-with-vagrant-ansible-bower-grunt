@@ -4,6 +4,7 @@ TOC:
 1. [Prepare development environment with Vagrant](#markdown-header-prepare-development-environment-with-vagrant)
 2. [Prepare staging environment with Vagrant](#markdown-header-prepare-staging-environment-with-vagrant)
 3. [Ansible example commands](#markdown-header-ansible-example-commands)
+
 -------------------------------
 
 Prepare development environment with Vagrant
@@ -13,6 +14,7 @@ Prepare development environment with Vagrant
 2. Create some project directory and clone this repository.
 3. Run `vagrant up dev` and go make some coffee (installation process will take a while).
 4. If everything is ok just [open app][virtual-dev].
+5. 
 -------------------------------
 
 Prepare staging environment with Vagrant
@@ -82,6 +84,7 @@ ansible-playbook app/config/ansible/sf2deploy.yml\
         * `-vv`
         * `-vvv` more
         * `-vvvv` connection debugging
+
 -------------------------------
 
 

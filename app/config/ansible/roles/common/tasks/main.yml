@@ -1,0 +1,10 @@
+---
+
+- name: Update the apt cache
+  apt: update_cache=yes
+  tags: install
+
+- name: Install common packages
+  apt: pkg={{ item }} state=latest
+  with_items: common_packages
+  tags: install

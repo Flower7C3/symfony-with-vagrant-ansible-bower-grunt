@@ -1,0 +1,46 @@
+---
+
+- name: Set hostname
+  shell: hostname icWEB1
+
+- name: Remove all sites
+  file: path=/etc/apache2/sites-enabled/000-default.conf state=absent force=yes
+
+- name: Configure Apache HTTP
+  template: src="etc/apache2/vhosts/app-vhost.conf" dest="/etc/apache2/sites-available/{{ app_domain }}.conf"
+
+- name: Enable site HTTP
+  shell: a2ensite {{ app_domain }}
+
+- name: Configure Apache HTTPS
+  template: src="etc/apache2/vhosts/app-vhost-ssl.conf" dest="/etc/apache2/sites-available/{{ app_domain }}.ssl.conf"
+
+- name: Enable site HTTPS
+  shell: a2ensite {{ app_domain }}.ssl
+
+- name: Create SSL dir
+  file: path=/etc/apache2/ssl state=directory
+
+- name: Copy SSL certs
+  copy:
+    src=etc/apache2/ssl/{{ item }}
+    dest=/etc/apache2/ssl/{{ item }}
+    directory_mode=yes
+  with_items: www_ssl_certs
+
+- name: Enable apache mods
+  shell: a2enmod {{ item }}
+  with_items: www_apache_mods
+  notify: restart apache
+
+#- name: insert iptables rule for httpd
+#  lineinfile: dest=/etc/sysconfig/iptables create=yes state=present regexp="{{ httpd_port }}" insertafter="^:OUTPUT "
+#              line="-A INPUT -p tcp  --dport {{ httpd_port }} -j  ACCEPT"
+#  notify: restart iptables
+#
+#- name: http service state
+#  service: name=httpd state=started enabled=yes
+#
+#- name: Configure SELinux to allow httpd to connect to remote database
+#  seboolean: name=httpd_can_network_connect_db state=true persistent=yes
+#  when: sestatus.rc != 0

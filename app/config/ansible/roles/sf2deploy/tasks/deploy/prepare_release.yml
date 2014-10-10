@@ -1,0 +1,13 @@
+---
+
+- name: Check if there is prior release
+  stat: path={{ www_production_root_dir }}
+  register: prior_check
+- name: Backup prior relase
+  command: cp -d {{ www_production_root_dir }} {{ www_prior_release_root_dir }}
+  when: prior_check.stat.exists
+
+- name: Create latest release directory
+  file: state=directory path={{ item.path }}
+  with_items:
+    - { path: "{{ www_latest_release_root_dir }}" }

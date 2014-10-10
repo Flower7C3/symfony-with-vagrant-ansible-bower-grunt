@@ -1,0 +1,18 @@
+---
+
+### PROJECT REPO ###
+repository_path: git@github.com:symfony/symfony.git
+repository_branch: master
+
+### ###
+release_id: default
+app_host: 127.0.0.1
+
+### DATABASE ###
+database_driver: pdo_mysql
+database_host: localhost
+database_port: "null"
+database_name: "symfony"
+database_user: "symfony"
+database_password: "{{ lookup('password', '/tmp/ansible-database-user.pass') }}"
+database_root_password: "{{ lookup('password', '/tmp/ansible-database-root.pass') }}"

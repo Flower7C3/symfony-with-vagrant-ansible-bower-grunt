@@ -1,0 +1,21 @@
+---
+
+### APP CONFIG ###
+app_name: symfony
+app_domain: symfony.local.test
+app_admin: admin@localhost
+app_http_path: http://{{ app_domain }}
+app_https_path: https://{{ app_domain }}
+app_default_locale: pl
+app_secret_key: "{{ lookup('password', '/tmp/ansible-symfony-secret.key') }}"
+mailer_transport: smtp
+mailer_host: "null"
+mailer_user: "null"
+mailer_password: "null"
+
+### SYMCONFY CONFIG ###
+sf2project_env: prod
+sf2console_opts: ''
+composer_path: /usr/local/bin/composer
+composer_opts: '--optimize-autoloader'
+#composer_opts: '--no-dev --optimize-autoloader'

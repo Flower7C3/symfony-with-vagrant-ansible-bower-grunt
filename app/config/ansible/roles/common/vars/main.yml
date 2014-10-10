@@ -1,0 +1,8 @@
+---
+
+common_packages:
+- python-software-properties
+- python-pycurl
+- vim
+- curl
+- mc

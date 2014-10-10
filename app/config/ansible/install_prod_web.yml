@@ -1,0 +1,11 @@
+---
+# This playbook installs production machines software.
+- name: Install web server
+  hosts: webservers
+  sudo: yes
+  roles:
+    - common
+    - web
+#  post_tasks:
+#    - name: Notify
+#      local_action: "shell zenity --info --text='Web server {{ ansible_hostname }} successfully installed.'"

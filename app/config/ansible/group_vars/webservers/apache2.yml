@@ -1,0 +1,11 @@
+---
+
+www_ssl_certs:
+#- example.crt
+#- example.csr
+#- example.der
+#- example.key
+
+www_apache_mods:
+- rewrite
+- ssl

@@ -1,0 +1,14 @@
+{
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "jquery": "~2.1.0",
+        "font-awesome-sass": "https://github.com/FortAwesome/font-awesome-sass.git#~4.2.0",
+        "twitter-bootstrap-sass": "~3.2.0"
+    }
+}

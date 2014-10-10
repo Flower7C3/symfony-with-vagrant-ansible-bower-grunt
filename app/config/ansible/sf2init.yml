@@ -1,0 +1,10 @@
+---
+# This playbook runs symfony role.
+- name: Symfony role
+  hosts: webservers
+  remote_user: www-data
+  roles:
+    - { role: sf2init, tags: sf2init }
+#  post_tasks:
+#    - name: Notify
+#      local_action: "shell zenity --info --text='App {{ app_name }} successfully inited on server {{ ansible_hostname }}.'"

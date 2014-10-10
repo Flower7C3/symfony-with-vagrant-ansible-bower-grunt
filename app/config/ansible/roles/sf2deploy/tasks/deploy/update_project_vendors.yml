@@ -1,0 +1,15 @@
+---
+
+- name: Check if vendors are installed
+  stat: path={{ www_libraries_root_dir }}/{{ www_vendors_dir }}/autoload.php
+  register: vendors_autoload_check
+- name: Instal composer vendors according to rules from composer.json file
+  shell: "{{ composer_path }} install {{ composer_opts }} chdir={{ www_latest_release_root_dir }}"
+  when: vendors_autoload_check.stat.exists == false
+- name: Update composer vendors according to rules from composer.json file
+  shell: "{{ composer_path }} update {{ composer_opts }} chdir={{ www_latest_release_root_dir }}"
+  when: vendors_autoload_check.stat.exists
+- name: Install NPM dependences according to rules from package.json file
+  shell: npm install chdir={{ www_latest_release_root_dir }}
+- name: Install Bower dependences according to rules from bower.json file
+  shell: bower update chdir={{ www_latest_release_root_dir }}

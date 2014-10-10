@@ -1,0 +1,21 @@
+---
+
+- name: Update db schema
+  shell: "{{ php_bin_path }} ./app/console doctrine:schema:update --force chdir={{ www_production_root_dir }}"
+  tags: sf2schema
+
+- name: Load sample data
+  shell: "{{ php_bin_path }}  ./app/console fos:user:create admin admin@local.host admin --super-admin chdir={{ www_production_root_dir }}"
+  tags: sf2createsu
+
+- name: Load sample data
+  shell: "{{ php_bin_path }}  -d memory_limit=1024M -d max_execution_time=600 ./app/console doctrine:fixtures:load --verbose --env={{ sf2project_env }} --no-debug --no-interaction chdir={{ www_production_root_dir }}"
+  tags: sf2fixtures
+
+- name: Setup ACL
+  shell: "{{ php_bin_path }} ./app/console sonata:admin:setup-acl chdir={{ www_production_root_dir }}"
+  tags: sf2acl
+
+- name: Generate ACL objects
+  shell: "{{ php_bin_path }}  -d memory_limit=1024M ./app/console sonata:admin:generate-object-acl chdir={{ www_production_root_dir }}"
+  tags: sf2acl

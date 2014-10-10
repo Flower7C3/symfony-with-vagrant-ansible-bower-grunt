@@ -1,0 +1,40 @@
+---
+
+### BINARIES
+php_bin_path: /usr/bin/php
+gem_bin_path: /opt/vagrant_ruby/bin/gem
+
+### DIRECTORIES ###
+www_user: www-data
+www_group: www-data
+www_key_path: "~/.ssh/id_rsa.pub"
+
+www_home_dir: /var/www
+www_root_dir: "{{ www_home_dir }}/{{ app_domain }}"
+www_releases_dir: releases
+www_current_release_dir: "{{ release_id }}"
+www_previous_release_dir: prior_latest
+www_production_dir: current
+www_shared_dir: shared
+www_libraries_dir: libs
+www_vendors_dir: vendor
+www_bower_dir: bower_components
+www_node_dir: node_modules
+www_symfony2_dir: symfony2
+www_sf2_app_dir: app
+www_sf2_app_cache_dir: "{{ www_sf2_app_dir }}/cache"
+www_sf2_app_logs_dir: "{{ www_sf2_app_dir }}/logs"
+www_sf2_app_sessions_dir: "{{ www_sf2_app_dir }}/sessions"
+www_sf2_app_config_dir: "{{ www_sf2_app_dir }}/config"
+www_sf2_app_parameters_path: "{{ www_sf2_app_config_dir }}/parameters.yml"
+www_sf2_web_dir: web
+www_sf2_web_uploads_dir: "{{ www_sf2_web_dir }}/storage"
+
+www_shared_root_dir: "{{ www_root_dir }}/{{ www_shared_dir }}"
+www_symfony2_root_dir: "{{ www_shared_root_dir }}/{{ www_symfony2_dir }}"
+www_libraries_root_dir: "{{ www_shared_root_dir }}/{{ www_libraries_dir }}"
+www_releases_root_dir: "{{ www_root_dir }}/{{ www_releases_dir }}"
+www_latest_release_root_dir: "{{ www_releases_root_dir }}/{{ www_current_release_dir }}"
+www_prior_release_root_dir: "{{ www_releases_root_dir }}/{{ www_previous_release_dir }}"
+www_production_root_dir: "{{ www_root_dir }}/{{ www_production_dir }}"
+

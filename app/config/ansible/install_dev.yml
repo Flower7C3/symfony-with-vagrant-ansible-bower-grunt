@@ -1,0 +1,5 @@
+---
+# This playbook installs and configure Vagrants virtual machine for development.
+- include: install_prod_web.yml
+- include: install_prod_db.yml
+- include: sf2deploy.yml

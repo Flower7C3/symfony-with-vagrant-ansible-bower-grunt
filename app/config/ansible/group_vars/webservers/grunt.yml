@@ -1,0 +1,17 @@
+---
+grunt_tasks_dev:
+- copy
+- concat
+- uglify
+- sass:auth
+- sass:backend
+- sass:icons
+- imagemin
+grunt_tasks_prod:
+- copy
+- concat
+- uglify
+- sass:authcompressed
+- sass:backendcompressed
+- sass:iconscompressed
+- imagemin

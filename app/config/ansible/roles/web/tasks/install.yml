@@ -1,0 +1,30 @@
+---
+
+- name: Add repositiories
+  apt_repository: repo={{ item }}
+  with_items:
+    - "ppa:chris-lea/node.js"
+    - "ppa:ondrej/php5"
+  notify: update apt
+
+- name: Get nodejs source
+  shell: curl -sL https://deb.nodesource.com/setup | sudo bash -
+
+- name: Install server packages
+  apt: name={{ item }} state=present
+  with_items: www_packages
+
+- name: Install Node modules
+  npm: name={{ item }} state=present global=yes
+  with_items: www_nodemodules
+
+- name: Install Ruby gems
+#  gem: name={{ item }} state=present executable={{ gem_bin_path }}
+  shell: sudo gem install {{ item }}
+  with_items: www_gems
+
+- name: Install composer
+  shell:
+    curl -sS https://getcomposer.org/installer | {{ php_bin_path }} && /bin/mv -f /home/vagrant/composer.phar {{ composer_path }}
+    creates={{ composer_path }}
+

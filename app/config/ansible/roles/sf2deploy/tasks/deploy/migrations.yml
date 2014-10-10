@@ -1,0 +1,4 @@
+---
+
+##- name: Run migrations
+##  shell: if $(grep doctrine-migrations-bundle composer.json); then {{ sf2_project_php_path }} app/console doctrine:migrations:migrate -n; fi chdir={{ www_latest_release_root_dir }}

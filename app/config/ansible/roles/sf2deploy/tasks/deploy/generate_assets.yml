@@ -1,0 +1,15 @@
+---
+
+- name: Run Grunt compilation of files according to rules from Grunfile.js file
+  shell: grunt {{ item }} chdir={{ www_latest_release_root_dir }}
+  with_items: grunt_tasks_prod
+  when: sf2project_env != 'dev'
+- name: Run Grunt compilation of files according to rules from Grunfile.js file
+  shell: grunt {{ item }} chdir={{ www_latest_release_root_dir }}
+  with_items: grunt_tasks_dev
+  when: sf2project_env == 'dev'
+- name: Dump assets to web directory
+  shell: app/console {{ item }} --env={{ sf2project_env }} {{ sf2console_opts }} chdir={{ www_latest_release_root_dir }}
+  with_items:
+      - assetic:dump
+      - assets:install {{ www_sf2_web_dir }}

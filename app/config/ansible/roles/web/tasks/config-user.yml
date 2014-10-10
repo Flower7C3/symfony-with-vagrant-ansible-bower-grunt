@@ -1,0 +1,29 @@
+---
+
+- name: Create WWW base diretory
+  file: state=directory
+        path={{ www_home_dir }}
+        owner={{ www_user }}
+        group={{ www_group }}
+
+- name: Generate www user SSH key
+  user: name={{ www_user }}
+        generate_ssh_key=yes ssh_key_bits=2048
+
+- name: Get www user SSH key
+  fetch: src={{ www_home_dir }}/.ssh/id_rsa.pub
+        dest="./remote-key-{{ www_user }}@{{ ansible_hostname }}-id_rsa.pub"
+        flat=yes
+
+- name: Set www user shell
+  shell: "sudo chsh -s /bin/bash {{ www_user }}"
+
+- name: Configure RSA key for local user
+  authorized_key: user="{{ www_user }}" key="{{ item }}"
+  with_file: "{{ www_key_path }}"
+
+- name: Configure locale config in .bashrc
+  template: src="home/bashrc"
+            dest="{{ www_home_dir }}/.bashrc"
+            owner={{ www_user }}
+            group={{ www_group }}

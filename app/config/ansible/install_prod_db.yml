@@ -1,0 +1,11 @@
+---
+# This playbook installs production database machines software.
+- name: Install database server
+  hosts: dbservers
+  sudo: yes
+  roles:
+    - common
+    - db
+#  post_tasks:
+#    - name: Notify
+#      local_action: "shell zenity --info --text='Db server {{ ansible_hostname }} successfully installed.'"

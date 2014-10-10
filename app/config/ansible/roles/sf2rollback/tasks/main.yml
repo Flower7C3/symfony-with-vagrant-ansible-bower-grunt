@@ -1,0 +1,13 @@
+---
+
+- name: Check if there is prior release
+  stat: path={{ www_prior_release_root_dir }}
+  register: prior_check
+
+- name: Remove current production
+  command: rm {{ www_production_root_dir }}
+  when: prior_check.stat.exists
+
+- name: Rollback from prior relese
+  command: mv {{ www_prior_release_root_dir }} {{ www_production_root_dir }}
+  when: prior_check.stat.exists

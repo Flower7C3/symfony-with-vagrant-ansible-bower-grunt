@@ -1,0 +1,10 @@
+---
+# This playbook deploys app on webservers.
+- name: Symfony deploy
+  hosts: webservers
+  remote_user: www-data
+  roles:
+    - { role: sf2deploy, tags: sf2deploy }
+#  post_tasks:
+#    - name: Notify
+#      local_action: "shell zenity --info --text='App {{ app_name }} in revision {{ release_id }} from {{ repository_branch }} branch successfully deployed to server {{ ansible_hostname }}.'"

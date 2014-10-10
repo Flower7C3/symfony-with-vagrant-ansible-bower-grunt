@@ -1,0 +1,27 @@
+---
+
+- name: Create web base directories
+  file: state=directory
+        path={{ item }}
+        owner={{ www_user }}
+        group={{ www_group }}
+  with_items:
+    - "{{ www_root_dir }}"
+    - "{{ www_releases_root_dir }}"
+    - "{{ www_shared_root_dir }}"
+    - "{{ www_libraries_root_dir }}"
+    - "{{ www_libraries_root_dir }}/{{ www_vendors_dir }}"
+    - "{{ www_libraries_root_dir }}/{{ www_bower_dir }}"
+    - "{{ www_libraries_root_dir }}/{{ www_node_dir }}"
+    - "{{ www_symfony2_root_dir }}"
+    - "{{ www_symfony2_root_dir }}/{{ www_sf2_app_dir }}"
+    - "{{ www_symfony2_root_dir }}/{{ www_sf2_app_config_dir }}"
+    - "{{ www_symfony2_root_dir }}/{{ www_sf2_app_sessions_dir }}"
+    - "{{ www_symfony2_root_dir }}/{{ www_sf2_web_dir }}"
+    - "{{ www_symfony2_root_dir }}/{{ www_sf2_web_uploads_dir }}"
+
+- name: Configure Symfony
+  template: src="{{ www_symfony2_dir }}/{{ www_sf2_app_parameters_path }}"
+            dest="{{ www_symfony2_root_dir }}/{{ www_sf2_app_parameters_path }}"
+            owner={{ www_user }}
+            group={{ www_group }}

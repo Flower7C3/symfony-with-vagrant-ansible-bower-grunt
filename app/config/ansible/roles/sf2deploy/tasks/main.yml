@@ -1,0 +1,37 @@
+---
+
+- include: deploy/prepare_release.yml
+
+- name: Copy the code from repository
+  git: repo={{ repository_path }} version={{ repository_branch }} dest={{ www_latest_release_root_dir }} accept_hostkey=yes
+  tags:
+    - git-clone
+    - deploy-prod
+
+- include: deploy/prepare_project.yml
+- include: deploy/update_project_vendors.yml
+  tags:
+    - update-vendors
+- include: deploy/generate_assets.yml
+  tags:
+    - generate-assets
+
+- name: Cleanup development files
+  shell: rm -rf {{ item }} chdir={{ www_latest_release_root_dir }}
+  with_items:
+    - "{{ www_sf2_web_dir }}/app_*.php"
+    - "{{ www_sf2_web_dir }}/config.php"
+    - "*.sh"
+    - "load_data.php"
+  when: sf2project_env != 'dev'
+  tags:
+    - deploy-prod
+    - deploy-cleanup
+
+- include: deploy/migrations.yml
+  when: sf2project_env != 'dev'
+  tags:
+    - deploy-prod
+
+- name: Deploy new app to production
+  file: state=link src={{ www_latest_release_root_dir }} path={{ www_production_root_dir }}

@@ -1,0 +1,8 @@
+---
+
+sql_packages:
+- mysql-server
+- mysql-common
+- python-dev
+- python-setuptools
+- python-mysqldb

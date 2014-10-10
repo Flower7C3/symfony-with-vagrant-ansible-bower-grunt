@@ -1,0 +1,24 @@
+---
+
+- include: install.yml
+  tags:
+    - install
+    - web-install
+
+- include: config-user.yml
+  tags:
+    - configure
+    - user-configure
+    - web-user-configure
+
+- include: config-sf2.yml
+  tags:
+    - configure
+    - symfony-configure
+    - web-symfony-configure
+
+- include: config-apache.yml
+  tags:
+    - configure
+    - apache-configure
+    - web-apache-configure
